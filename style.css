@@ -13,9 +13,17 @@
     --white: #fff;
 }
 
+
 body {
     background: var(--purple);
 }
+
+header {
+    color: white;
+    padding-top: 20px;
+    text-align: center;
+}
+
 
 p {
     font-weight: 200;
@@ -50,13 +58,6 @@ a {
     color: white;
 }
 
-header {
-    color: white;
-    height: 54px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 section {
     display: flex;
@@ -159,7 +160,7 @@ footer h3 {
 
 
 /* Media Queries */
-@media (min-width: 922px) {
+@media (min-width: 700px) {
 
     button:hover,
     .button:hover {
