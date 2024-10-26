@@ -51,7 +51,7 @@ async function paintOneList(name) {
         let section = document.body.querySelector('#data');
         section.innerHTML = `
         <button id='back'>< VOLVER A LISTAS DE LIBROS</button>
-        <h1>${name.display_name}</h1>
+        <h1 id="listName">${name.display_name}</h1>
         `;
 
         let books = name.books;

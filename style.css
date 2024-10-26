@@ -26,6 +26,7 @@ strong {
 }
 
 h1 {
+    color: white;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 22px;
@@ -121,6 +122,11 @@ footer h3 {
 .book img{
     width: 200px;
     border-radius: 10px;
+}
+
+#listName {
+    color: white;
+    text-align: center;
 }
 
 
