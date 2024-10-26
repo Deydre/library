@@ -55,18 +55,18 @@ async function paintOneList(name) {
 
         books.forEach((book, index) => {
             section.innerHTML += `
-            <article>
+            <article class="book">
                 <div>
-                    <h2><strong>#${(index + 1)}</strong> ${book.title}</h2>
+                    <h2>#${(index + 1)} ${book.title}</h2>
                     <p>${book.author}</p>
                 </div>
-                <img src="${book.book_image}">
+                <div><img src="${book.book_image}"></div>
                 <div>
                     <p><strong>Weeks on list:</strong> ${book.weeks_on_list}</p>
                     <p><strong>Description:</strong> ${book.description}</p>
                 </div>
                 <div>
-                    <a target="_blank" href="${book.buy_links[0].url}">BUY AT AMAZON</a>
+                    <a target="_blank" class="button" href="${book.buy_links[0].url}">BUY AT AMAZON</a>
                 </div>
             </article>
         `

@@ -5,16 +5,20 @@
 
 }
 
-body {
-    background: var(--purple);
-}
-
 :root {
     --purple: #3f3752;
     --gradient1: linear-gradient(130deg, #762cee, #ff44b7, #fcbf49);
     --gradient1-pale: linear-gradient(130deg, #9961f4, #fa77c8, #fad58b);
     --gradient2: linear-gradient(130deg, #ff49b9, #ffb623);
     --white: #fff;
+}
+
+body {
+    background: var(--purple);
+}
+
+p {
+    font-weight: 200;
 }
 
 strong {
@@ -73,9 +77,9 @@ article {
     overflow: hidden;
 }
 
-button {
+button, .button {
     font-family: "Poppins", sans-serif;
-    ;
+    text-decoration: none;
     font-weight: 600;
     font-size: 14px;
     color: var(--white);
@@ -108,10 +112,21 @@ footer h3 {
     padding-bottom: 4px;
 }
 
+.book div:nth-child(2){
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.book img{
+    width: 200px;
+    border-radius: 10px;
+}
+
 /* Media Queries */
 @media (min-width: 922px) {
 
-    button:hover {
+    button:hover, .button:hover {
         font-size: 15px;
         cursor: pointer;
         background: var(--gradient1-pale);
