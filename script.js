@@ -1,4 +1,13 @@
 let apiKey = '55aWr3iYrSH8Ny2NT2QxtD7vHTsLtfSC';
+var loadingDiv = document.getElementById('loading');
+
+function showSpinner() {
+    loadingDiv.style.visibility = 'visible';
+}
+
+function hideSpinner() {
+    loadingDiv.style.visibility = 'hidden';
+}
 
 // Función | Recibir los datos de la lista de libros de la API -> Devolver array de objetos
 async function getListsBooks() {
@@ -51,7 +60,7 @@ async function paintOneList(name) {
         let section = document.body.querySelector('#data');
         let h1Header = document.body.querySelector('header h1');
         h1Header.innerHTML = name.display_name;
-        
+
         section.innerHTML = `
         <div id='divBack'><button id='back'>< VOLVER A LISTAS DE LIBROS</button></div>        
         `;
@@ -94,8 +103,10 @@ async function paintOneList(name) {
 
 // Función | Recibir lista de libros -> Pintar lista en el DOM -> Activar AddEventListeners
 async function paintListBooks() {
+    showSpinner();
     try {
         let data = await getListsBooks();
+        hideSpinner();
         let section = document.body.querySelector('#data');
 
         let h1Header = document.body.querySelector('header h1');
@@ -124,7 +135,9 @@ async function paintListBooks() {
             button.addEventListener('click', async function () {
                 let listName = this.getAttribute('id');
                 let response = await getOneList(listName);
-                paintOneList(response)
+                showSpinner();
+                paintOneList(response);
+                hideSpinner();
             });
             // FUTURO: EVENTOS DE TARJETA en hover de btn
             // article.addEventListener('mouseover', function() {
