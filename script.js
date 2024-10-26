@@ -20,3 +20,36 @@ async function getListsBooks() {
     }
 };
 
+
+// Pintar lista en el DOM
+async function paintListBooks() {
+    try {
+        let data = await getListsBooks();
+
+        console.log(data)
+        let section = document.body.querySelector('#data');
+        data.forEach((list, index) => {
+            section.innerHTML += `
+                <article>
+                    <div>
+                        <h2>${list.list_name}</h2>
+                    </div>
+                    <div>
+                        <p>Oldest book: ${list.oldest_published_date}</p>
+                        <p>Newest book: ${list.newest_published_date}</p>
+                        <p>Frecuency: ${list.updated}</p>
+                        <button id='viewList${index}'></button>
+                    </div>
+                </article>
+            `
+        });  
+        
+
+    } catch (error) {
+        // Manejar errores de red o del servidor
+        console.error('Hubo un problema con la solicitud:', error.message);
+    }
+}
+
+
+paintListBooks()
