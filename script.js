@@ -50,7 +50,7 @@ async function paintOneList(name) {
     try {
         let section = document.body.querySelector('#data');
         let h1Header = document.body.querySelector('header h1');
-        h1Header.innerHTML = name.display_name
+        h1Header.innerHTML = name.display_name;
         
         section.innerHTML = `
         <div id='divBack'><button id='back'>< VOLVER A LISTAS DE LIBROS</button></div>        
@@ -97,6 +97,9 @@ async function paintListBooks() {
     try {
         let data = await getListsBooks();
         let section = document.body.querySelector('#data');
+
+        let h1Header = document.body.querySelector('header h1');
+        h1Header.innerHTML = '📖✨ Galactic Library ✨📖';
 
         data.forEach(list => {
             section.innerHTML += `
