@@ -35,15 +35,16 @@ async function paintListBooks() {
                         <h2>${list.list_name}</h2>
                     </div>
                     <div>
-                        <p>Oldest book: ${list.oldest_published_date}</p>
-                        <p>Newest book: ${list.newest_published_date}</p>
-                        <p>Frecuency: ${list.updated}</p>
-                        <button id='viewList${index}'></button>
+                        <p><strong>Oldest book:</strong> ${list.oldest_published_date}</p>
+                        <p><strong>Newest book:</strong> ${list.newest_published_date}</p>
+                        <p><strong>Frecuency:</strong> ${list.updated.charAt(0) + list.updated.substring(1).toLowerCase()}</p>
+                    </div>
+                    <div>
+                        <button id='viewList${index}'>VIEW LIST ></button>
                     </div>
                 </article>
             `
         });  
-        
 
     } catch (error) {
         // Manejar errores de red o del servidor

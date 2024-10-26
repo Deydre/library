@@ -1,0 +1,129 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "DM Sans", sans-serif;
+
+}
+
+body {
+    background: var(--purple);
+}
+
+:root {
+    --purple: #3f3752;
+    --gradient1: linear-gradient(130deg, #762cee, #ff44b7, #fcbf49);
+    --gradient1-pale: linear-gradient(130deg, #9961f4, #fa77c8, #fad58b);
+    --gradient2: linear-gradient(130deg, #ff49b9, #ffb623);
+    --white: #fff;
+}
+
+strong {
+    font-weight: 500;
+}
+
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+h2 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    background: var(--gradient2);
+    /* Establecer el fondo del texto */
+    -webkit-background-clip: text;
+    /* Clip del fondo en el texto para WebKit */
+    background-clip: text;
+    /* Propiedad estándar para otros navegadores */
+    -webkit-text-fill-color: transparent;
+    /* Hacer que el texto sea transparente para WebKit */
+}
+
+a {
+    color: white;
+}
+
+header {
+    color: white;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    padding: 28px 30px;
+}
+
+article {
+    border-radius: 13px;
+    padding: 30px 18px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    color: var(--white);
+    border: 1px solid transparent;
+    border-image: var(--gradient1)1;
+    overflow: hidden;
+}
+
+button {
+    font-family: "Poppins", sans-serif;
+    ;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--white);
+    background: var(--gradient1);
+    width: 100%;
+    padding: 9px;
+    border-radius: 8px;
+    border: none;
+    height: 42px;
+    transition: 0.3s;
+}
+
+article div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 200;
+}
+
+footer {
+    padding: 20px;
+    color: white;
+    background: var(--gradient1);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+footer h3 {
+    padding-bottom: 4px;
+}
+
+/* Media Queries */
+@media (min-width: 922px) {
+
+    button:hover {
+        font-size: 15px;
+        cursor: pointer;
+        background: var(--gradient1-pale);
+        width: 100%;
+        padding: 9px;
+        border-radius: 8px;
+        border: none;
+        height: 46px;
+    }
+
+    footer {
+        text-align: center;
+        bottom: 0;
+    }
+}
