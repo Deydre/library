@@ -49,7 +49,10 @@ async function getOneList(name) {
 async function paintOneList(name) {
     try {
         let section = document.body.querySelector('#data');
-        section.innerHTML = `<h1>${name.display_name}</h1>`;
+        section.innerHTML = `
+        <button id='back'>< VOLVER A LISTAS DE LIBROS</button>
+        <h1>${name.display_name}</h1>
+        `;
 
         let books = name.books;
 
@@ -72,6 +75,15 @@ async function paintOneList(name) {
         `
         })
 
+        // Event listener | Botón volver atrás
+        let button = document.querySelector('#back');
+
+        button.addEventListener('click', async function () {
+            section.innerHTML = "";
+            paintListBooks();
+        });
+
+
     } catch (error) {
         // Manejar errores de red o del servidor
         console.error('Hubo un problema con la solicitud:', error.message);
@@ -84,7 +96,7 @@ async function paintListBooks() {
         let data = await getListsBooks();
         let section = document.body.querySelector('#data');
 
-        data.forEach((list, index) => {
+        data.forEach(list => {
             section.innerHTML += `
                 <article>
                     <div>
@@ -107,12 +119,9 @@ async function paintListBooks() {
 
         button.forEach((button) => {
             button.addEventListener('click', async function () {
-                // Console log de su URL
-                const listName = this.getAttribute('id');
-                const response = await getOneList(listName);
-                console.log(response);
+                let listName = this.getAttribute('id');
+                let response = await getOneList(listName);
                 paintOneList(response)
-
             });
             // FUTURO: EVENTOS DE TARJETA en hover de btn
             // article.addEventListener('mouseover', function() {
@@ -132,5 +141,5 @@ async function paintListBooks() {
     }
 }
 
-paintListBooks()
+paintListBooks();
 
