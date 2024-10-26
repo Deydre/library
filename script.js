@@ -49,9 +49,11 @@ async function getOneList(name) {
 async function paintOneList(name) {
     try {
         let section = document.body.querySelector('#data');
+        let h1Header = document.body.querySelector('header h1');
+        h1Header.innerHTML = name.display_name
+        
         section.innerHTML = `
-        <button id='back'>< VOLVER A LISTAS DE LIBROS</button>
-        <h1 id="listName">${name.display_name}</h1>
+        <div id='divBack'><button id='back'>< VOLVER A LISTAS DE LIBROS</button></div>        
         `;
 
         let books = name.books;
@@ -101,8 +103,6 @@ async function paintListBooks() {
                 <article>
                     <div>
                         <h2>${list.list_name}</h2>
-                    </div>
-                    <div>
                         <p><strong>Oldest book:</strong> ${list.oldest_published_date}</p>
                         <p><strong>Newest book:</strong> ${list.newest_published_date}</p>
                         <p><strong>Frecuency:</strong> ${list.updated.charAt(0) + list.updated.substring(1).toLowerCase()}</p>
