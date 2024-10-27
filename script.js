@@ -1,6 +1,85 @@
 let apiKey = '55aWr3iYrSH8Ny2NT2QxtD7vHTsLtfSC';
 var loadingDiv = document.getElementById('loading');
 
+// import { initializeApp } from "firebase/app";
+
+// // Firebase configuration
+// const firebaseConfig = {
+//     apiKey: "AIzaSyD18tbaLjIQlFipK8LqmLNUoXh0h45zQIo",
+//     authDomain: "library-5d865.firebaseapp.com",
+//     projectId: "library-5d865",
+//     storageBucket: "library-5d865.appspot.com",
+//     messagingSenderId: "764581789569",
+//     appId: "1:764581789569:web:1b0fbb7694ea02acd33280"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+
+// document.getElementById("contactForm").addEventListener("submit", function (event) {
+//     event.preventDefault(); // Evita que la página se recargue
+//     // Obtener los valores del formulario
+//     const nombre = document.getElementById("fname").value;
+//     const usuario = document.getElementById("user").value;
+//     const email = document.getElementById("email").value;
+//     const password = document.getElementById("password").value;
+//     const aceptoTerminos = document.getElementById("accept").checked; // Ver si aceptó los términos
+//     if (!aceptoTerminos) {
+//         alert("Debes aceptar los términos legales.");
+//         return;
+//     }
+//     // Registrar al usuario en Firebase Authentication
+//     firebase.auth().createUserWithEmailAndPassword(email, password)
+//         .then((userCredential) => {
+//             const user = userCredential.user;
+//             // Guardar información adicional en Firestore
+//             db.collection("users").doc(user.uid).set({
+//                 nombre: nombre,
+//                 usuario: usuario,
+//                 email: email,
+//                 personalScore: 0, // Inicializar el personalScore en 0
+//                 globalScore: 0    // Inicializar el globalScore en 0
+//             })
+//                 .then(() => {
+//                     console.log("Usuario registrado correctamente y datos guardados.");
+//                     alert("Perfil creado exitosamente.");
+//                 })
+//                 .catch((error) => {
+//                     console.error("Error al guardar datos en Firestore: ", error);
+//                     alert("Error al crear el perfil.");
+//                 });
+//         })
+//         .catch((error) => {
+//             console.error("Error al registrar el usuario: ", error);
+//             alert("Error: " + error.message);
+//         });
+// });
+
+// FORMULARIO
+document.getElementById('logIn').onclick = function () {
+    document.getElementById('popup').style.display = 'block';
+}
+
+document.getElementById('closePopup').onclick = function () {
+    document.getElementById('popup').style.display = 'none';
+}
+
+// Cierra el popup si el usuario hace clic fuera del contenido
+window.onclick = function (event) {
+    const popup = document.getElementById('popup');
+    if (event.target == popup) {
+        popup.style.display = 'none';
+    }
+}
+
+// Manejo del envío del formulario
+document.getElementById('myForm').onsubmit = function (e) {
+    e.preventDefault(); // Evita el envío real del formulario
+    alert("Formulario enviado");
+    document.getElementById('popup').style.display = 'none'; // Cierra el popup
+}
+
+// --------------------------------------------------
 function showSpinner() {
     loadingDiv.style.visibility = 'visible';
 }

@@ -22,8 +22,15 @@ header {
     color: white;
     padding-top: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+header button {
+    width: 100px;
+    margin-top: 20px;
+}
 
 p {
     font-weight: 200;
@@ -99,6 +106,12 @@ button,
 }
 
 
+#logIn {
+    color: var(--white);
+    background: #ffffff33;
+}
+
+
 article div:first-child {
     display: flex;
     flex-direction: column;
@@ -150,7 +163,8 @@ footer h3 {
     text-align: center;
 }
 
-#divBack {
+#divBack,
+#divUser {
     display: block;
     text-align: center;
     width: 100%;
@@ -289,26 +303,124 @@ footer h3 {
     }
 }
 
+/* POPUP */
+
+.popup {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fondo oscuro */
+    z-index: 1000;
+    /* Asegura que el popup esté encima */
+}
+
+.popup-content {
+    background-color: white;
+    margin: 15% auto;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    position: relative;
+}
+
+.popup-content h2{
+    padding-top: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--purple);
+}
+
+form label, form > input  {
+    margin-top: 18px;
+}
+
+.popup-content div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* -------------------------------- */
 
 /* Media Queries */
 @media (min-width: 700px) {
 
-    main {
-        padding: 0px 40px;
+    main,
+    header {
+        padding-left: 40px;
+        padding-right: 40px;
     }
+
+    header {
+        flex-direction: row;
+    }
+
+    header div {
+        width: 100%;
+    }
+
+    header button {
+        margin-top: 0px;
+    }
+
+    #divUser {
+        margin-top: 20px;
+    }
+
+
+    #logIn:hover {
+        cursor: pointer;
+        color: var(--purple);
+        background: #fefdff;
+        width: 28%;
+    }
+
+    #SignUp:hover {
+        cursor: pointer;
+        background: var(--gradient1-pale);
+        width: 28%;
+    }
+
 
     button:hover,
     .button:hover {
-        font-size: 15px;
+        font-size: 14.5px;
         cursor: pointer;
         background: var(--gradient1-pale);
         width: 100%;
-        padding: 9px;
-        border-radius: 8px;
-        border: none;
-        height: 46px;
     }
+
+
 
     footer {
         text-align: center;
