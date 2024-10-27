@@ -110,7 +110,7 @@ async function paintListBooks() {
         let section = document.body.querySelector('#data');
 
         let h1Header = document.body.querySelector('header h1');
-        h1Header.innerHTML = '📖✨ Galactic Library ✨📖';
+        h1Header.innerHTML = '📖✨ Galactic Library Lists ✨📖';
 
         data.forEach(list => {
             section.innerHTML += `
