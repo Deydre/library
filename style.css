@@ -376,6 +376,11 @@ form label, form > input  {
     padding-top: 12px;
 }
 
+.hide{
+    display: none;
+}
+
+
 /* -------------------------------- */
 
 /* Media Queries */
@@ -411,11 +416,6 @@ form label, form > input  {
         background: var(--gradient1-pale);
         width: 140px;
     }
-
-    .hide{
-        display: none;
-    }
-
 
     button:hover,
     .button:hover {
