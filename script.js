@@ -12,9 +12,8 @@ const firebaseConfig = {
     appId: "1:764581789569:web:1b0fbb7694ea02acd33280"
 };
 
-firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase
+firebase.initializeApp(firebaseConfig);// Inicializar app Firebase
 
-const db = firebase.firestore();// db representa mi BBDD //inicia Firestore
 
 // ----------- FORMULARIOS ----------- 
 // Mostrar/Ocultar Sign In
@@ -54,24 +53,6 @@ document.querySelector('#formSignIn').onsubmit = function (e) {
     document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
 };
 
-// CUANDO NOS REGISTREMOS + CUANDO NOS LOGUEEMOS
-// Ocultar login + sign up
-// Mostrar logout
-// Función para ocultar login + sign up y mostrar logout
-function toggleButtons() {
-    let logInBtn = document.querySelector("#logIn");
-    let signUpBtn = document.querySelector("#signUp");
-    logInBtn.classList.toggle("hide");
-    signUpBtn.classList.toggle("hide");
-}
-
-// 1º crear boton y ponerle class hide
-// mirar toggle class
-// function myFunction() {
-//     var element = document.getElementById("myDIV");
-//     element.classList.toggle("mystyle");
-//  }
-
 // LISTENER PARA REGISTRAR
 document.querySelector("#formSignUp").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -81,6 +62,7 @@ document.querySelector("#formSignUp").addEventListener("submit", function (event
 
     // VALIDACIÓN DEL FORMULARIO
     let warning = document.querySelector('.warningDiv');
+    
     if ((pass.length < 6) || (pass2.length < 6)) { // Si las contraseñas son cortas (Firebase Auth no acepta menos de 6 caracteres)
         warning.innerHTML = '<p class="warning">Password should be more than 6 characters</p>'
     } else if (pass !== pass2) { // Si las contraseñas no son iguales
@@ -95,13 +77,17 @@ document.querySelector("#formSignUp").addEventListener("submit", function (event
         };
     }
 })
+
 // LISTENER PARA LOGUEARSE
 document.querySelector("#formSignIn").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let email = event.target.elements.loginEmail.value;
+    let pass = event.target.elements.loginPass.value;
 
     // VALIDACIÓN
     if (pass.length < 6) { // Si las contraseñas son cortas (Firebase Auth no acepta menos de 6 caracteres)
         warning.innerHTML = '<p class="warning">Password should be more than 6 characters</p>'
-    } else { // Si todo está bien
+    }else { // Si todo está bien
         signInUser(email, pass); // Llamar a Firebase Auth
         document.querySelector('#popupSignIn').style.display = 'none'; // Cierra el popup
         document.getElementById('formSignIn').onsubmit = function (e) {
@@ -110,13 +96,14 @@ document.querySelector("#formSignIn").addEventListener("submit", function (event
             document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
         };
     }
-
-    event.preventDefault();
-    let email = event.target.elements.email.value;
-    let pass = event.target.elements.pass.value;
-    signInUser(email, pass)
 })
-//   document.getElementById("salir").addEventListener("click", signOut);
+
+// LISTENER PARA HACER LOGOUT
+document.querySelector("#logOut").addEventListener('click', function () {
+    signOut(); // Llamar a Firebase Auth
+    console.log("Logout done");
+    document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
+});
 
 
 // ----------- SPINNER ----------- 
@@ -128,7 +115,7 @@ function hideSpinner() {
     loadingDiv.style.visibility = 'hidden';
 }
 
-// ----------- FUNCIONES ----------- 
+// ----------- FUNCIONES API/DOM ----------- 
 
 // Función | Recibir los datos de la lista de libros de la API -> Devolver array de objetos
 async function getListsBooks() {
@@ -313,17 +300,10 @@ const signInUser = (email, password) => {
         .then((userCredential) => {
             // Signed in
             let user = userCredential.user;
-            // Hacer flujo de la web aquí dentro
-            console.log(`se ha logado ${user.email} ID:${user.uid}`)
-            alert(`se ha logado ${user.email} ID:${user.uid}`)
             console.log("USER", user);
-            document.body.innerHTML += `<h1>Bienvenido ${user.email}</h1>`
         })
         .catch((error) => {
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)
+            console.log("El usuario no existe en el sistema")
         });
 }
 
@@ -345,9 +325,23 @@ const signOut = () => {
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         console.log(`Está en el sistema:${user.email} ${user.uid}`);
-        document.querySelector("#message").innerText = `Estás en el sistema: ${user.email} ✅`;
+        document.querySelector("#message").innerText = `Bienvenido: ${user.email} 🎃`;
+        let loginBtn = document.querySelector("#logIn");
+        let signUpBtn = document.querySelector("#signUp");
+        let logOutBtn = document.querySelector("#logOut");
+        loginBtn.classList.add("hide");
+        signUpBtn.classList.add("hide");
+        logOutBtn.classList.remove("hide");
     } else {
-        console.log("no hay usuarios en el sistema");
+        console.log("No hay usuarios en el sistema");
         document.querySelector("#message").innerText = `No hay usuarios en el sistema`;
+        let logInBtn = document.querySelector("#logIn");
+        let signUpBtn = document.querySelector("#signUp");
+        let logOutBtn = document.querySelector("#logOut");
+
+        logInBtn.classList.remove("hide");
+        signUpBtn.classList.remove("hide");
+        logOutBtn.classList.add("hide");
     }
 });
+
