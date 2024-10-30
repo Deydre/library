@@ -62,7 +62,7 @@ document.querySelector("#formSignUp").addEventListener("submit", function (event
 
     // VALIDACIÓN DEL FORMULARIO
     let warning = document.querySelector('.warningDiv');
-    
+
     if ((pass.length < 6) || (pass2.length < 6)) { // Si las contraseñas son cortas (Firebase Auth no acepta menos de 6 caracteres)
         warning.innerHTML = '<p class="warning">Password should be more than 6 characters</p>'
     } else if (pass !== pass2) { // Si las contraseñas no son iguales
@@ -278,7 +278,6 @@ const signUpUser = (email, password) => {
             // Signed in
             let user = userCredential.user;
             console.log(`se ha registrado ${user.email} ID:${user.uid}`)
-            alert(`se ha registrado ${user.email} ID:${user.uid}`)
             // ...
             // Saves user in firestore
             // Además de registrarse, añadimos el uID que nos devuelve Google desde userCredential.user.uid (ver en líneas 173-176)
