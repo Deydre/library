@@ -19,7 +19,7 @@ body {
 }
 
 header {
-    color: white;
+    color: var(--white);
     padding-top: 20px;
     text-align: center;
     display: flex;
@@ -42,7 +42,7 @@ strong {
 }
 
 h1 {
-    color: white;
+    color: var(--white);
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 20px;
@@ -63,7 +63,7 @@ h2 {
 }
 
 a {
-    color: white;
+    color: var(--white);
 }
 
 
@@ -106,12 +106,6 @@ button,
 }
 
 
-#logIn, #logOut {
-    color: var(--white);
-    background: #ffffff33;
-}
-
-
 article div:first-child {
     display: flex;
     flex-direction: column;
@@ -121,7 +115,7 @@ article div:first-child {
 
 footer {
     padding: 20px;
-    color: white;
+    color: var(--white);
     background: var(--gradient1);
     display: flex;
     flex-direction: column;
@@ -150,16 +144,22 @@ footer h3 {
     border-radius: 10px;
 }
 
-#listName {
-    color: white;
-    text-align: center;
-}
 
 .button {
     box-sizing: border-box;
     display: block;
     width: 100%;
     width: 100%;
+    text-align: center;
+}
+
+#logIn, #logOut {
+    color: var(--white);
+    background: #ffffff33;
+}
+
+#listName {
+    color: var(--white);
     text-align: center;
 }
 
@@ -303,6 +303,10 @@ footer h3 {
     }
 }
 
+.hide{
+    display: none;
+}
+
 /* -------------------- POPUP -------------------- */
 
 .popup {
@@ -376,10 +380,6 @@ form label, form > input  {
     padding-top: 12px;
 }
 
-.hide{
-    display: none;
-}
-
 
 /* -------------------------------- */
 
@@ -404,6 +404,20 @@ form label, form > input  {
         margin-top: 0px;
     }
 
+    footer {
+        text-align: center;
+        bottom: 0;
+    }
+
+    section {
+        flex-direction: row;
+    }
+
+    article {
+        width: 220px;
+        justify-content: space-between;
+    }
+
     #logIn:hover, #logOut:hover {
         cursor: pointer;
         color: var(--purple);
@@ -424,22 +438,5 @@ form label, form > input  {
         background: var(--gradient1-pale);
         width: 100%;
     }
-
-
-
-    footer {
-        text-align: center;
-        bottom: 0;
-    }
-
-    section {
-        flex-direction: row;
-    }
-
-    article {
-        width: 220px;
-        justify-content: space-between;
-    }
-
 
 }
