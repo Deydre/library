@@ -99,7 +99,18 @@ document.querySelector("#formSignUp").addEventListener("submit", function (event
 document.querySelector("#formSignIn").addEventListener("submit", function (event) {
 
     // VALIDACIÓN
-    
+    if (pass.length < 6) { // Si las contraseñas son cortas (Firebase Auth no acepta menos de 6 caracteres)
+        warning.innerHTML = '<p class="warning">Password should be more than 6 characters</p>'
+    } else { // Si todo está bien
+        signInUser(email, pass); // Llamar a Firebase Auth
+        document.querySelector('#popupSignIn').style.display = 'none'; // Cierra el popup
+        document.getElementById('formSignIn').onsubmit = function (e) {
+            e.preventDefault(); // Evitar el envío real del formulario
+            console.log("Formulario de login enviado");
+            document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
+        };
+    }
+
     event.preventDefault();
     let email = event.target.elements.email.value;
     let pass = event.target.elements.pass.value;
