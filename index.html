@@ -22,7 +22,7 @@
         </div>
         <div id='divUser'>
             <button id='logIn'>LOGIN</button>
-            <button id='SignUp'>SIGN UP</button>
+            <button id='signUp'>SIGN UP</button>
         </div>
 
     </header>
@@ -33,20 +33,45 @@
                 Loading&#8230;
             </div>
         </div>
-        <div id="popup" class="popup">
+        <!-- Login Popup -->
+        <div id="popupSignIn" class="popup">
             <div class="popup-content">
-                <span class="close" id="closePopup">&times;</span>
-                <h2>Formulario</h2>
-                <form id="myForm">
+                <span class="close" id="closePopupSignIn">&times;</span>
+                <h2>Login Form</h2>
+                <form id="formSignIn" action="#" method="POST">
                     <div>
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Your name goes here" required>
+                        <label for="loginEmail">Email:</label>
+                        <input type="email" id="loginEmail" name="email" placeholder="Your email goes here" required>
                     </div>
                     <div>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" placeholder="Your email goes here"required>
+                        <label for="loginPass">Password:</label>
+                        <input type="password" id="loginPass" name="pass" placeholder="Your password goes here" required>
                     </div>
-                    <input class= "button" type="submit" value="SEND">
+                    <input class="button" type="submit" value="SEND">
+                </form>
+            </div>
+        </div>
+
+        <!-- Sign Up Popup -->
+        <div id="popupSignUp" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closePopupSignUp">&times;</span>
+                <h2>Sign Up Form</h2>
+                <form id="formSignUp" action="#" method="POST">
+                    <div>
+                        <label for="signUpEmail">Email:</label>
+                        <input type="email" id="signUpEmail" name="name" placeholder="Your email goes here" required>
+                    </div>
+                    <div>
+                        <label for="signUpPass">Password:</label>
+                        <input type="password" id="signUpPass" name="pass" placeholder="Your password goes here" required>
+                    </div>
+                    <div>
+                        <label for="signUpPass2">Repeat password:</label>
+                        <input type="password" id="signUpPass2" name="pass2" placeholder="Repeat your password..." required>
+                    </div>
+                    <input class="button" type="submit" value="SEND">
+                    <div><p class="warning"></p></div>
                 </form>
             </div>
         </div>
@@ -64,7 +89,18 @@
             <p>Made by <a href="https://developer.nytimes.com/docs/books-product/1/overview">Deydre</a></p>
         </div>
     </footer>
+
+    <!-- ---- Tiene que estar antes la llamada a las librerías que nuestro script.js -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+
     <script src="script.js"></script>
+
 </body>
 
 </html>

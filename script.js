@@ -1,85 +1,96 @@
 let apiKey = '55aWr3iYrSH8Ny2NT2QxtD7vHTsLtfSC';
 var loadingDiv = document.getElementById('loading');
 
-// import { initializeApp } from "firebase/app";
+// ----------- FIREBASE ----------- 
+// --- Objeto de conexión que nos da Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyD18tbaLjIQlFipK8LqmLNUoXh0h45zQIo",
+    authDomain: "library-5d865.firebaseapp.com",
+    projectId: "library-5d865",
+    storageBucket: "library-5d865.appspot.com",
+    messagingSenderId: "764581789569",
+    appId: "1:764581789569:web:1b0fbb7694ea02acd33280"
+};
 
-// // Firebase configuration
-// const firebaseConfig = {
-//     apiKey: "AIzaSyD18tbaLjIQlFipK8LqmLNUoXh0h45zQIo",
-//     authDomain: "library-5d865.firebaseapp.com",
-//     projectId: "library-5d865",
-//     storageBucket: "library-5d865.appspot.com",
-//     messagingSenderId: "764581789569",
-//     appId: "1:764581789569:web:1b0fbb7694ea02acd33280"
-// };
+firebase.initializeApp(firebaseConfig);// Inicializaar app Firebase
 
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
+const db = firebase.firestore();// db representa mi BBDD //inicia Firestore
 
-// document.getElementById("contactForm").addEventListener("submit", function (event) {
-//     event.preventDefault(); // Evita que la página se recargue
-//     // Obtener los valores del formulario
-//     const nombre = document.getElementById("fname").value;
-//     const usuario = document.getElementById("user").value;
-//     const email = document.getElementById("email").value;
-//     const password = document.getElementById("password").value;
-//     const aceptoTerminos = document.getElementById("accept").checked; // Ver si aceptó los términos
-//     if (!aceptoTerminos) {
-//         alert("Debes aceptar los términos legales.");
-//         return;
-//     }
-//     // Registrar al usuario en Firebase Authentication
-//     firebase.auth().createUserWithEmailAndPassword(email, password)
-//         .then((userCredential) => {
-//             const user = userCredential.user;
-//             // Guardar información adicional en Firestore
-//             db.collection("users").doc(user.uid).set({
-//                 nombre: nombre,
-//                 usuario: usuario,
-//                 email: email,
-//                 personalScore: 0, // Inicializar el personalScore en 0
-//                 globalScore: 0    // Inicializar el globalScore en 0
-//             })
-//                 .then(() => {
-//                     console.log("Usuario registrado correctamente y datos guardados.");
-//                     alert("Perfil creado exitosamente.");
-//                 })
-//                 .catch((error) => {
-//                     console.error("Error al guardar datos en Firestore: ", error);
-//                     alert("Error al crear el perfil.");
-//                 });
-//         })
-//         .catch((error) => {
-//             console.error("Error al registrar el usuario: ", error);
-//             alert("Error: " + error.message);
-//         });
-// });
-
-// FORMULARIO
+// ----------- FORMULARIOS ----------- 
+// Mostrar/Ocultar Sign In
 document.getElementById('logIn').onclick = function () {
-    document.getElementById('popup').style.display = 'block';
-}
+    document.getElementById('popupSignIn').style.display = 'block';
+};
 
-document.getElementById('closePopup').onclick = function () {
-    document.getElementById('popup').style.display = 'none';
-}
+document.getElementById('closePopupSignIn').onclick = function () {
+    document.getElementById('popupSignIn').style.display = 'none';
+};
 
-// Cierra el popup si el usuario hace clic fuera del contenido
+// Mostrar/Ocultar Sign Up
+document.getElementById('signUp').onclick = function () {
+    document.getElementById('popupSignUp').style.display = 'block';
+};
+
+document.getElementById('closePopupSignUp').onclick = function () {
+    document.getElementById('popupSignUp').style.display = 'none';
+};
+
+// Cerrar popup si se hace click fuera
 window.onclick = function (event) {
-    const popup = document.getElementById('popup');
-    if (event.target == popup) {
-        popup.style.display = 'none';
+    const popupSignIn = document.getElementById('popupSignIn');
+    const popupSignUp = document.getElementById('popupSignUp');
+    if (event.target == popupSignIn) {
+        popupSignIn.style.display = 'none';
     }
-}
+    if (event.target == popupSignUp) {
+        popupSignUp.style.display = 'none';
+    }
+};
 
-// Manejo del envío del formulario
-document.getElementById('myForm').onsubmit = function (e) {
-    e.preventDefault(); // Evita el envío real del formulario
-    alert("Formulario enviado");
-    document.getElementById('popup').style.display = 'none'; // Cierra el popup
-}
+// Manejo del envío de los formularios
+document.querySelector('#formSignIn').onsubmit = function (e) {
+    e.preventDefault(); // Evitar el envío real del formulario
+    console.log("Formulario de inicio de sesión enviado");
+    document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
+};
 
-// --------------------------------------------------
+
+
+// Listener en el formulario para enviar las variables a signUpUser()
+document.querySelector("#formSignUp").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let email = event.target.elements.signUpEmail.value;
+    let pass = event.target.elements.signUpPass.value;
+    let pass2 = event.target.elements.signUpPass2.value;
+
+
+    // Comprobar que contraseña tiene > 6 carácteres
+    if (pass.length < 6) {
+        let warning = document.querySelector('.warning');
+        warning.innerHTML = '<p class="warning">Pass should be more than 6 characters</p>'
+    } else if (pass === pass2) { // Si las contraseñas son iguales
+        signUpUser(email, pass); // Llamar a Firebase Auth
+        document.querySelector('#popupSignUp').style.display = 'none'; // Cierra el popup
+        document.getElementById('formSignUp').onsubmit = function (e) {
+            e.preventDefault(); // Evitar el envío real del formulario
+            console.log("Formulario de registro enviado");
+            document.getElementById('popupSignUp').style.display = 'none'; // Cerrar popup
+        };
+    } else {
+        alert("Las contraseñas no coinciden.");
+    }
+})
+
+document.querySelector("#formSignIn").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let email = event.target.elements.email.value;
+    let pass = event.target.elements.pass.value;
+    signInUser(email, pass)
+  })
+//   document.getElementById("salir").addEventListener("click", signOut);
+
+
+// ----------- SPINNER ----------- 
 function showSpinner() {
     loadingDiv.style.visibility = 'visible';
 }
@@ -87,6 +98,8 @@ function showSpinner() {
 function hideSpinner() {
     loadingDiv.style.visibility = 'hidden';
 }
+
+// ----------- FUNCIONES ----------- 
 
 // Función | Recibir los datos de la lista de libros de la API -> Devolver array de objetos
 async function getListsBooks() {
@@ -203,14 +216,14 @@ async function paintListBooks() {
                     <div>
                         <button class='viewList' id='${list.list_name}'>VIEW LIST ></button>
                     </div>
-                </ >
+                </article>
                 `
         });
 
         // Event listener | Cada botón
         let button = document.querySelectorAll('.viewList');
 
-        button.forEach((button) => {
+        button.forEach(button => {
             button.addEventListener('click', async function () {
                 let listName = this.getAttribute('id');
                 let response = await getOneList(listName);
@@ -238,3 +251,62 @@ async function paintListBooks() {
 
 paintListBooks();
 
+
+// ----------- FIREBASE AUTH ----------- 
+// Función para registro
+const signUpUser = (email, password) => {
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            let user = userCredential.user;
+            console.log(`se ha registrado ${user.email} ID:${user.uid}`)
+            alert(`se ha registrado ${user.email} ID:${user.uid}`)
+            // ...
+            // Saves user in firestore
+            // Además de registrarse, añadimos el uID que nos devuelve Google desde userCredential.user.uid (ver en líneas 173-176)
+            createUser({
+                id: user.uid,
+                email: user.email,
+                message: "hola!"
+            });
+
+        })
+        .catch((error) => {
+            console.log("Error en el sistema" + error.message, "Error: " + error.code);
+        });
+};
+
+// Función para loguearse
+const signInUser = (email, password) => {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        let user = userCredential.user;
+        // Hacer flujo de la web aquí dentro
+        console.log(`se ha logado ${user.email} ID:${user.uid}`)
+        alert(`se ha logado ${user.email} ID:${user.uid}`)
+        document.body.innerHTML += `<h1>Bienvenido ${user.email}</h1>`
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(errorCode)
+        console.log(errorMessage)
+      });
+  }
+
+
+  // Listener de usuario en el sistema
+// Controlar usuario logado
+//onAuthStateChanged es un lsitener que tiene Firebase para comprobar que alguien está en el sistema
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      console.log(`Está en el sistema:${user.email} ${user.uid}`);
+      document.querySelector("#message").innerText = `Está en el sistema: ${user.email} ${user.uid}`;
+    } else {
+      console.log("no hay usuarios en el sistema");
+      document.querySelector("#message").innerText = `No hay usuarios en el sistema`;
+    }
+  });

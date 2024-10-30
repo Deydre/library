@@ -303,7 +303,7 @@ footer h3 {
     }
 }
 
-/* POPUP */
+/* -------------------- POPUP -------------------- */
 
 .popup {
     display: none;
@@ -370,6 +370,12 @@ form label, form > input  {
     cursor: pointer;
 }
 
+.warning {
+    color: red;
+    font-weight: 600;
+    padding-top: 12px;
+}
+
 /* -------------------------------- */
 
 /* Media Queries */
@@ -402,13 +408,13 @@ form label, form > input  {
         cursor: pointer;
         color: var(--purple);
         background: #fefdff;
-        width: 28%;
+        width: 140px;
     }
 
-    #SignUp:hover {
+    #signUp:hover {
         cursor: pointer;
         background: var(--gradient1-pale);
-        width: 28%;
+        width: 140px;
     }
 
 
