@@ -18,10 +18,12 @@
 <body>
     <header>
         <div>
-            <h1>📖✨ Galactic Library ✨📖</h1>
+            <h1></h1>
+            <p id='message'></p>
         </div>
         <div id='divUser'>
             <button id='logIn'>LOGIN</button>
+            <button id='logOut' class="hide">LOGOUT</button>
             <button id='signUp'>SIGN UP</button>
         </div>
 
@@ -71,7 +73,7 @@
                         <input type="password" id="signUpPass2" name="pass2" placeholder="Repeat your password..." required>
                     </div>
                     <input class="button" type="submit" value="SEND">
-                    <div><p class="warning"></p></div>
+                    <div class="warningDiv"></div>
                 </form>
             </div>
         </div>

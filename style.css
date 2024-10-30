@@ -106,7 +106,7 @@ button,
 }
 
 
-#logIn {
+#logIn, #logOut {
     color: var(--white);
     background: #ffffff33;
 }
@@ -399,12 +399,7 @@ form label, form > input  {
         margin-top: 0px;
     }
 
-    #divUser {
-        margin-top: 20px;
-    }
-
-
-    #logIn:hover {
+    #logIn:hover, #logOut:hover {
         cursor: pointer;
         color: var(--purple);
         background: #fefdff;
@@ -415,6 +410,10 @@ form label, form > input  {
         cursor: pointer;
         background: var(--gradient1-pale);
         width: 140px;
+    }
+
+    .hide{
+        display: none;
     }
 
 

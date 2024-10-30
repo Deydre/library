@@ -54,21 +54,38 @@ document.querySelector('#formSignIn').onsubmit = function (e) {
     document.getElementById('popupSignIn').style.display = 'none'; // Cerrar popup
 };
 
+// CUANDO NOS REGISTREMOS + CUANDO NOS LOGUEEMOS
+// Ocultar login + sign up
+// Mostrar logout
+// Función para ocultar login + sign up y mostrar logout
+function toggleButtons() {
+    let logInBtn = document.querySelector("#logIn");
+    let signUpBtn = document.querySelector("#signUp");
+    logInBtn.classList.toggle("hide");
+    signUpBtn.classList.toggle("hide");
+}
 
+// 1º crear boton y ponerle class hide
+// mirar toggle class
+// function myFunction() {
+//     var element = document.getElementById("myDIV");
+//     element.classList.toggle("mystyle");
+//  }
 
-// Listener en el formulario para enviar las variables a signUpUser()
+// LISTENER PARA REGISTRAR
 document.querySelector("#formSignUp").addEventListener("submit", function (event) {
     event.preventDefault();
     let email = event.target.elements.signUpEmail.value;
     let pass = event.target.elements.signUpPass.value;
     let pass2 = event.target.elements.signUpPass2.value;
 
-
-    // Comprobar que contraseña tiene > 6 carácteres
-    if (pass.length < 6) {
-        let warning = document.querySelector('.warning');
-        warning.innerHTML = '<p class="warning">Pass should be more than 6 characters</p>'
-    } else if (pass === pass2) { // Si las contraseñas son iguales
+    // VALIDACIÓN DEL FORMULARIO
+    let warning = document.querySelector('.warningDiv');
+    if ((pass.length < 6) || (pass2.length < 6)) { // Si las contraseñas son cortas (Firebase Auth no acepta menos de 6 caracteres)
+        warning.innerHTML = '<p class="warning">Password should be more than 6 characters</p>'
+    } else if (pass !== pass2) { // Si las contraseñas no son iguales
+        warning.innerHTML = '<p class="warning">Passwords are not the same</p>'
+    } else { // Si todo está bien
         signUpUser(email, pass); // Llamar a Firebase Auth
         document.querySelector('#popupSignUp').style.display = 'none'; // Cierra el popup
         document.getElementById('formSignUp').onsubmit = function (e) {
@@ -76,17 +93,18 @@ document.querySelector("#formSignUp").addEventListener("submit", function (event
             console.log("Formulario de registro enviado");
             document.getElementById('popupSignUp').style.display = 'none'; // Cerrar popup
         };
-    } else {
-        alert("Las contraseñas no coinciden.");
     }
 })
-
+// LISTENER PARA LOGUEARSE
 document.querySelector("#formSignIn").addEventListener("submit", function (event) {
+
+    // VALIDACIÓN
+    
     event.preventDefault();
     let email = event.target.elements.email.value;
     let pass = event.target.elements.pass.value;
     signInUser(email, pass)
-  })
+})
 //   document.getElementById("salir").addEventListener("click", signOut);
 
 
@@ -202,7 +220,7 @@ async function paintListBooks() {
         let section = document.body.querySelector('#data');
 
         let h1Header = document.body.querySelector('header h1');
-        h1Header.innerHTML = '📖✨ Galactic Library Lists ✨📖';
+        h1Header.innerHTML = '📖✨👻 Spooky Library 👻✨📖';
 
         data.forEach(list => {
             section.innerHTML += `
@@ -281,32 +299,44 @@ const signUpUser = (email, password) => {
 // Función para loguearse
 const signInUser = (email, password) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        let user = userCredential.user;
-        // Hacer flujo de la web aquí dentro
-        console.log(`se ha logado ${user.email} ID:${user.uid}`)
-        alert(`se ha logado ${user.email} ID:${user.uid}`)
-        document.body.innerHTML += `<h1>Bienvenido ${user.email}</h1>`
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(errorCode)
-        console.log(errorMessage)
-      });
-  }
+        .then((userCredential) => {
+            // Signed in
+            let user = userCredential.user;
+            // Hacer flujo de la web aquí dentro
+            console.log(`se ha logado ${user.email} ID:${user.uid}`)
+            alert(`se ha logado ${user.email} ID:${user.uid}`)
+            console.log("USER", user);
+            document.body.innerHTML += `<h1>Bienvenido ${user.email}</h1>`
+        })
+        .catch((error) => {
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log(errorCode)
+            console.log(errorMessage)
+        });
+}
 
+// Para desloguearse
+const signOut = () => {
+    // La variable firebase ya sabe quién está en el sistema con signIn
+    let user = firebase.auth().currentUser;
+    // Esto desloguea:
+    firebase.auth().signOut().then(() => {
+        console.log("Sale del sistema: " + user.email)
+    }).catch((error) => {
+        console.log("hubo un error: " + error);
+    });
+}
 
-  // Listener de usuario en el sistema
+// Listener de usuario en el sistema
 // Controlar usuario logado
 //onAuthStateChanged es un lsitener que tiene Firebase para comprobar que alguien está en el sistema
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-      console.log(`Está en el sistema:${user.email} ${user.uid}`);
-      document.querySelector("#message").innerText = `Está en el sistema: ${user.email} ${user.uid}`;
+        console.log(`Está en el sistema:${user.email} ${user.uid}`);
+        document.querySelector("#message").innerText = `Estás en el sistema: ${user.email} ✅`;
     } else {
-      console.log("no hay usuarios en el sistema");
-      document.querySelector("#message").innerText = `No hay usuarios en el sistema`;
+        console.log("no hay usuarios en el sistema");
+        document.querySelector("#message").innerText = `No hay usuarios en el sistema`;
     }
-  });
+});
